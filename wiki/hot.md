@@ -100,10 +100,22 @@ Role: Design Engineer (builds infrastructure). 40 min work, 15 min present, 20 m
 
 ---
 
+## B2C Patient App Key Findings (NEW — read before interview)
+
+- **AI intake feature confirmed absent**: No pre-consultation prompt in appointment list, appointment detail, or messaging — genuinely not live yet.
+- **`ConsentGate` production reference exists**: "Consultation audio" consent is the live template — 3-tier (self / self+dependents / decline), explicitly names "artificial intelligence tools", revocable from My Preferences. Copy this pattern exactly.
+- **Two-layer consent required**: Personalized services (master GDPR Art.9 data controller consent) must be active BEFORE consultation audio consent is meaningful. AI intake needs the same prerequisite check.
+- **Documents section = patient health artifact store**: Encrypted, patient-controlled. AI intake may reference these as context but they are NOT the home for AI summaries (summaries are ephemeral, pre-appointment).
+- **Private Notes tab exists**: "Only you have access." Trust register: patients expect fine-grained control. AI intake UX must feel similarly patient-controlled.
+- **No AI features anywhere in B2C today**: Messages empty, appointment detail metadata-only — the gap is confirmed, not assumed.
+
+---
+
 ## Active Threads
 
 - **INTERVIEW**: Design Engineer live case — 90 min total, AI pre-consultation history feature
 - ~~Doctolib Pro sandbox~~ — ingested 2026-06-22 (20 screenshots)
+- ~~B2C patient app~~ — ingested 2026-06-22 (13 screenshots)
 - ~~Gemini Deep Research~~ — ingested 2026-06-22
 
 > [!gap] Design system technology stack not confirmed (React component library name, token system). Not exposed in sandbox settings.
