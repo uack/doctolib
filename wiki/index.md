@@ -42,6 +42,7 @@ tags:
 | Page | Status | Summary |
 |---|---|---|
 | `[[sources/sandbox-pro-doctolib]]` | mature/high | Full sandbox walkthrough — all major sections, pre-booking question system, Consultation Assistant placement, communication pipeline |
+| `[[sources/sandbox-b2c-doctolib]]` | mature/high | Full B2C patient app walkthrough — all sections, 3-tier consent model, ConsentGate production reference, confirmed AI feature absence |
 
 ## Sources (raw)
 
