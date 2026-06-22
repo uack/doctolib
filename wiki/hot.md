@@ -22,7 +22,8 @@ tags:
 last_ingest:    2026-06-22 (helpcenter-patient-pathways — official docs, question types + blocking)
 last_lint:      2026-06-22 (11 nominal dead links, all benign — wiki clean)
 open_gaps:      1
-pages_total:    14
+pages_total:    16
+artifacts:      DESIGN.md (Oxygen tokens from live site), waiting-room-companion-expansion.md
 ```
 
 ---
