@@ -60,6 +60,7 @@ pages_total:    13
 - `[[raw/research/live-case-brief.pdf]]` — original interview brief
 - `[[raw/research/gemini-deep-research]]` — strategic analysis (financials, AI, competition, regulation)
 - `[[sources/sandbox-pro-doctolib]]` · `[[sources/sandbox-b2c-doctolib]]` · `[[sources/sandbox-pro-settings-config]]` — Pro/B2C/Settings scrapes
+- `[[sources/helpcenter-patient-pathways]]` — Official help docs: 5 question types, referral constraint, hardcoded wording
 - `[[overview]]` · `[[concepts/regulatory-constraints]]` · `[[concepts/competitive-landscape]]` · `[[stakeholders/stanislas-niox-chateau]]`
 
 ---
