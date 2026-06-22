@@ -88,15 +88,14 @@ Role: Design Engineer (builds infrastructure). 40 min work, 15 min present, 20 m
 
 ---
 
-## Sandbox Key Findings (NEW — read before interview)
+## Sandbox Key Findings
 
-- **Pre-booking questions ≠ pre-consultation AI intake**: today's questions are answered at booking time (static library). The AI feature extends this to async intake *days before* appointment.
-- **`SummaryCard` placement confirmed**: Consultation Assistant panel already has a "Summaries to validate" queue. The pre-consultation summary plugs in HERE — no new screen needed.
-- **Dictation is premium upsell** ("Upgrade to unlock") — separate from Consultation Assistant.
-- **No `/configuration/ai` page exists** — AI settings would need to be built; currently no dedicated configuration surface.
-- **Communication pipeline**: 5 existing touchpoints (confirmation, week-before, SMS, day-before, opinion). AI intake invitation = new 6th touchpoint inserted between week-before and day-before.
-- **Question editor uses checkbox library** (fixed questions: Age, New patient, Referral). AI intake requires a dynamic question layer on top of this — `IntakeQuestion` component replaces/extends static checkbox model.
-- **Connect = practitioner-to-practitioner** (not patient-facing). Tele-expertise coming soon.
+- **Pre-booking ≠ AI intake**: today's questions answered at booking time (static library). AI feature = async intake *days before* appointment.
+- **`SummaryCard` placement confirmed**: "Summaries to validate" queue in Consultation Assistant panel — no new screen needed.
+- **Dictation = premium upsell** ("Upgrade to unlock") — separate from Consultation Assistant.
+- **No `/configuration/ai`** — AI settings don't exist yet; would need to be built.
+- **Communication pipeline**: 5 touchpoints today. AI intake = new 6th between week-before and day-before.
+- **Question editor = checkbox library** (Age, New patient, Referral). AI intake needs dynamic layer — `IntakeQuestion` extends this.
 
 ---
 
