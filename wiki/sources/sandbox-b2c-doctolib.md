@@ -44,6 +44,16 @@ sources:
   - "[[raw/articles/b2c-11-consultation-audio-consent.png]]"
   - "[[raw/articles/b2c-12-search-results.png]]"
   - "[[raw/articles/b2c-13-practitioner-profile.png]]"
+  - "[[raw/articles/b2c-14-booking-step1-reason.png]]"
+  - "[[raw/articles/b2c-15-booking-step2-reason.png]]"
+  - "[[raw/articles/b2c-16-booking-step3-calendar.png]]"
+  - "[[raw/articles/b2c-17-prebooking-instructions-dialog.png]]"
+  - "[[raw/articles/b2c-18-booking-checkout.png]]"
+  - "[[raw/articles/b2c-19-booking-confirmed.png]]"
+  - "[[raw/articles/b2c-20-appointment-detail-with-cancel.png]]"
+  - "[[raw/articles/b2c-21-cancellation-dialog.png]]"
+  - "[[raw/articles/b2c-22-post-cancellation.png]]"
+  - "[[raw/articles/b2c-23-past-appointment-detail.png]]"
 tags:
   - b2c
   - patient
