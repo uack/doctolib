@@ -64,6 +64,7 @@ pages_total:    12
 - `[[raw/research/live-case-brief.pdf]]` — original interview brief
 - `[[raw/research/gemini-deep-research]]` — full strategic analysis (financials, AI features, competition, regulation, role)
 - `[[sources/sandbox-pro-doctolib]]` — full sandbox walkthrough (20 screenshots, all major sections)
+- `[[sources/sandbox-b2c-doctolib]]` — full B2C patient app walkthrough (13 screenshots, consent flows)
 - `[[overview]]` — Doctolib executive summary (high confidence)
 - `[[concepts/regulatory-constraints]]` — EU AI Act, GDPR, automation bias
 - `[[concepts/competitive-landscape]]` — Nabla, DocPlanner, EMIS/TPP, UK play
