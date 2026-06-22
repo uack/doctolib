@@ -92,11 +92,11 @@ Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship
 
 ## B2C Patient App Key Findings (NEW)
 
-- **AI intake confirmed absent**: No pre-consultation prompt in appointment list or detail — genuinely not live yet.
+- **AI intake confirmed absent**: No pre-consultation prompt anywhere in booking funnel or appointment detail.
 - **`ConsentGate` production reference**: "Consultation audio" = 3-tier model (self / self+dependents / decline), explicitly names "artificial intelligence tools", revocable any time.
-- **Two-layer consent**: Personalized services (GDPR Art.9 data controller) must be active BEFORE AI audio consent. AI intake needs the same prerequisite check.
-- **Documents**: Encrypted, patient-controlled health artifacts. NOT the home for AI summaries (summaries are ephemeral, pre-appointment).
-- **Private Notes**: "Only you have access" — patients expect fine-grained control over health data.
+- **Two-layer consent**: Personalized services (GDPR Art.9) → Consultation audio. AI intake needs same prerequisite check.
+- **Booking checkout = 1 question only**: "Have you visited this practitioner before?" — full patient intake today is just that.
+- **"Send documents"**: Appointment-scoped CTA (upcoming only). Separate from AI intake — document upload ≠ structured history questions.
 
 ---
 
