@@ -43,6 +43,7 @@ tags:
 |---|---|---|
 | `[[sources/sandbox-pro-doctolib]]` | mature/high | Full sandbox walkthrough — all major sections, pre-booking question system, Consultation Assistant placement, communication pipeline |
 | `[[sources/sandbox-b2c-doctolib]]` | mature/high | Full B2C patient app walkthrough — all sections, 3-tier consent model, ConsentGate production reference, complete booking+cancel flow |
+| `[[sources/sandbox-pro-settings-config]]` | mature/high | Pro settings deep dive — question system (closed 3-type library), comms matrix (5 channels), booking fields, templates |
 
 ## Sources (raw)
 
