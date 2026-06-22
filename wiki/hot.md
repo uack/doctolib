@@ -19,10 +19,10 @@ tags:
 ## Pipeline State
 
 ```
-last_ingest:    2026-06-22 (gemini-deep-research + live-case-brief.pdf)
+last_ingest:    2026-06-22 (sandbox-pro-doctolib — 20 screenshots)
 last_lint:      —
-open_gaps:      2
-pages_total:    10
+open_gaps:      1
+pages_total:    11
 ```
 
 ---
