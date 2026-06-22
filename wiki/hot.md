@@ -19,7 +19,7 @@ tags:
 ## Pipeline State
 
 ```
-last_ingest:    2026-06-22 (sandbox-b2c-doctolib — 13 screenshots)
+last_ingest:    2026-06-22 (sandbox-b2c-doctolib — 23 screenshots incl. booking flow)
 last_lint:      —
 open_gaps:      1
 pages_total:    12
