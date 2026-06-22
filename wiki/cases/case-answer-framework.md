@@ -87,10 +87,11 @@ Key UX decisions:
 ### Design System Questions This Raises
 
 1. **Does Doctolib's design system have conversational/chat primitives?** If not, we need to build them. If yes, do they handle AI-generated content differently from human content?
-2. **How does the DS handle trust/provenance indicators?** AI content needs visual differentiation from clinician-authored content.
-3. **Does the DS have a consent micro-pattern?** GDPR consent must be consistent across all AI touchpoints — this can't be bespoke each time.
+2. **How does the DS handle trust/provenance indicators?** AI content needs visual differentiation from clinician-authored content. *(The EU AI Act Art.13 requires it — not just a design preference.)*
+3. **Does the DS have a consent micro-pattern?** GDPR Article 9 (health data = special category) means consent must be explicit and per-category. Can't be bespoke each time — it's a compliance primitive. *(See [[concepts/regulatory-constraints]].)*
 4. **How are loading/streaming states handled?** AI responses stream — does the DS have skeleton states for dynamic content?
 5. **Accessibility baseline for conversational UI?** Screen reader behavior for chat-style interfaces is non-trivial.
+6. **Is the DS model-agnostic?** CEO position is sovereign AI / Inria joint lab. The component layer must decouple from any specific LLM vendor.
 
 ### Design Infrastructure Required
 
