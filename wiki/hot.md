@@ -12,7 +12,7 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — Doctolib Pro sandbox fully ingested (20 screenshots, all major sections). Wiki at 11 pages.
+2026-06-22 — B2C patient app fully ingested (13 screenshots, all major sections + consent flows). Wiki at 12 pages.
 
 ---
 
