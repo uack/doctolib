@@ -240,6 +240,73 @@ Booking flow entry point: patient selects reason → triggers pre-booking questi
 
 ---
 
+## 12. Full Booking Flow (b2c-14 through b2c-23)
+
+**Practitioner**: Mr Claudio Lamprecht, GP, Berlin (private patient)  
+**Slot booked**: Monday 3 August 2026, 12:00 — immediately cancelled after capture
+
+### Step 1 — Patient identity (b2c-14)
+"Who is this appointment for?" — radio list of patients on the account. Alex SIMON selected.
+
+### Step 2 — Reason for visit (b2c-15)
+"Select reason for visit" — single option for this practitioner: "Untersuchung / Behandlung / Beratung Hausarzt (Privatpatient)". Static dropdown from practitioner's configured motives.
+
+### Step 3 — Date selection (b2c-16)
+Calendar with accordion days. Each day expandable to show time slots. "VIEW MORE DATES" loads more weeks. "VIEW MORE APPOINTMENT SLOTS" loads more times per day. No AI content.
+
+### Pre-booking instructions dialog (b2c-17)
+Before checkout, a modal: **"Please read this before making an appointment"**  
+Contains practitioner-authored content:
+- Address update (moved 01.01.2025 to Potsdamer Str. 7)
+- Cancellation policy: cancel ≥24h before; late/no-show → fee invoice; no-shows affect future booking rights
+- Billing: private insurance = invoice always issued
+
+CTA: "I HAVE READ AND ACCEPT THE INSTRUCTION" (must click to proceed)
+
+> [!key-insight] This practitioner-authored instructions dialog is a **pre-checkout gate**, not a pre-consultation AI gate. It confirms that the booking funnel already has a gating pattern — AI intake consent (`ConsentGate`) would slot in at a similar point, or post-confirmation as an async prompt.
+
+### Checkout (b2c-18) — `/online_booking/checkout`
+Page: "Confirm the appointment"  
+- Appointment summary: date, time, address, reason, insurance type
+- Single question: **"Have you visited this practitioner in the past?"** (Yes / No radio, Yes pre-selected)
+- CTA: "Confirm appointment"
+
+> [!key-insight] Only one patient-provided data point is collected at checkout: new vs. returning patient. This is the **entire patient intake today**. The AI pre-consultation history feature would be a new async layer, entirely separate from this booking-time gate.
+
+### Confirmation (b2c-19) — `/online_booking/draft/confirmation`
+- "Appointment confirmed — We sent a confirmation to your email"
+- Appointment summary (date, time, practitioner)
+- CTAs: **"Send documents"**, "Add to my calendar", "Book again"
+- Waitlist toggle: "Want an earlier appointment? Receive an alert when an earlier appointment is available."
+- "VIEW MORE DETAILS" link to appointment detail page
+
+> [!key-insight] **"Send documents"** appears immediately on confirmation — patients can attach medical documents to an upcoming appointment. This is the existing document-sharing touchpoint. AI pre-consultation intake would be a distinct flow (structured history questions, not document upload).
+
+### Appointment detail — upcoming (b2c-20) — `/account/appointments`
+- Full appointment metadata + address
+- CTAs: **"Reschedule"**, **"Cancel appointment"**, **"Send documents"**, "Add to my calendar", "Share appointment details"
+- Waitlist toggle visible again
+- Data retention notice: "appointments are deleted after 5 years"
+
+### Send documents — what it is
+The "Send documents" button is appointment-scoped: appears on upcoming appointments (confirmation page + appointment detail), **absent on past appointments**. It's a document-sharing flow — patient attaches existing medical files (PDF, images) to the appointment context for the practitioner. Distinct from AI intake (which would generate structured health context from patient-answered questions).
+
+### Cancellation flow (b2c-21)
+Modal: "Are you sure you want to cancel your appointment?"  
+Two buttons: "KEEP APPOINTMENT" / "CONFIRM CANCELLATION"  
+No cancellation fee enforced in UI for far-future slots (>24h rule not triggered).
+
+### Post-cancellation (b2c-22)
+Returns to "No upcoming appointments" state. Clean.
+
+### Past appointment detail (b2c-23)
+- No "Send documents" button
+- No "Reschedule" or "Cancel"
+- Only: "Book again", "Share appointment details", map, facility info
+- Confirms: document sharing is appointment-scoped to upcoming bookings only
+
+---
+
 ## Key Structural Findings for the Case
 
 ### What EXISTS on patient side today
