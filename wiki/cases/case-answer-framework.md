@@ -181,7 +181,7 @@ DS Layer 4 (build): AI patterns — full composed patterns like "pre-consultatio
 → Graceful degradation is designed in. The feature adds value if used, doesn't harm if ignored. Track adoption by specialty as a signal for which question templates resonate.
 
 **"How do you balance AI-generated content with clinical accuracy?"**
-→ Provenance rule: the UI always attributes to the patient ("patient reported..."), never asserts ("patient has..."). Doctor is always the clinical authority — AI is context, not diagnosis.
+→ Provenance rule: the UI always attributes to the patient ("patient reported..."), never asserts ("patient has..."). Doctor is always the clinical authority — AI is context, not diagnosis. This also maps directly to EU AI Act Art.13 (transparency) and automation bias mitigation — courts hold physicians liable for accepting implausible AI outputs without verification.
 
 **"What metrics would you use to measure success?"**
 → Patient side: intake completion rate by specialty, time-to-complete. Pro side: summary view open rate, time-in-summary. Clinical: self-reported consultation satisfaction (NPS delta), admin time saved per consultation.
