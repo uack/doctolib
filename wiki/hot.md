@@ -12,7 +12,7 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — Full B2C booking flow captured (23 screenshots incl. book+cancel). Wiki at 12 pages.
+2026-06-22 — Pro settings deep dive ingested (12 screenshots). Question system confirmed: 3 types only, no custom. Wiki at 13 pages.
 
 ---
 
