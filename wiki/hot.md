@@ -19,10 +19,10 @@ tags:
 ## Pipeline State
 
 ```
-last_ingest:    2026-06-22 (sandbox-pro-settings-config — 12 screenshots, settings deep dive)
+last_ingest:    2026-06-22 (helpcenter-patient-pathways — official docs, question types + blocking)
 last_lint:      —
 open_gaps:      1
-pages_total:    13
+pages_total:    14
 ```
 
 ---
