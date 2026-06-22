@@ -1,3 +1,5 @@
+- **2026-06-22** | `review` | pages_created: 0 | pages_updated: 1 | dead_links_delta: +0 | open_gaps: 2 | Eng review CLEARED: 6 tasks added (E1–E6), stack confirmed (deepseek-v4-flash + Vercel proxy + state object + system prompt guardrail)
+
 ---
 type: meta
 title: "Wiki Log"
