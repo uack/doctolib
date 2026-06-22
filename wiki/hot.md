@@ -12,7 +12,7 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — B2C patient app fully ingested (13 screenshots, all major sections + consent flows). Wiki at 12 pages.
+2026-06-22 — Full B2C booking flow captured (23 screenshots incl. book+cancel). Wiki at 12 pages.
 
 ---
 
