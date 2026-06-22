@@ -29,13 +29,11 @@ pages_total:    12
 
 ## Doctolib Overview
 
-- Founded 2013 Paris. Operational profitability confirmed 2025. ARR ~€422M. R&D €115–150M/year.
-- 70M+ patients, 350K+ practitioners, 100M+ bookings/year. No-show rate ~2%.
-- Markets: France (dominant), Germany, Italy — UK entry via Medicus acquisition (May 2026, £100M)
-- **AI trajectory**: Consultation Assistant (Oct 2024, 1M+ consults, 50% doc time cut) → Telephone Assistant (Dec 2025, 200K+ calls, 6h/week saved) → Inria joint lab (sovereign AI)
-- Strategic move: scheduling tool → AI-native clinical workflow OS for practitioners
-- CEO: Stanislas Niox-Chateau. Maxim: "physician stays in control of everything."
-- Design team: 50+ people. Mandate: **"evolve DS to support agentic AI components"**
+- Founded 2013 Paris. ARR ~€422M. 70M+ patients, 350K+ practitioners. Operational profitability 2025.
+- Markets: FR (dominant), DE, IT — UK via Medicus (May 2026, £100M, 25yr NHS clearance)
+- AI: Consultation Assistant (Oct 2024, 1M+ consults, 50% time cut) → Phone Assistant (Dec 2025) → Inria lab
+- Scheduling tool → AI-native clinical workflow OS. CEO Stanislas: "physician stays in control of everything."
+- Design team 50+. Mandate: **"evolve DS to support agentic AI components"**
 
 ---
 
