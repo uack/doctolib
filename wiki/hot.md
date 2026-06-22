@@ -12,75 +12,87 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — Brief filed. Case framework built. Role confirmed: Design Engineer (not product designer).
+2026-06-22 — Gemini Deep Research ingested. Wiki at 10 pages. Case framework updated with regulatory + competitive intelligence.
 
 ---
 
 ## Pipeline State
 
 ```
-last_ingest:    2026-06-22 (live-case-brief.pdf)
+last_ingest:    2026-06-22 (gemini-deep-research + live-case-brief.pdf)
 last_lint:      —
-open_gaps:      3
-pages_total:    7
+open_gaps:      2
+pages_total:    10
 ```
 
 ---
 
 ## Doctolib Overview
 
-- Founded 2013 Paris. €5.8B valuation (2021). ~3,000 employees.
-- 70M+ patients, 350K+ practitioners, 100M+ bookings/year
-- Markets: France (dominant), Germany, Italy — UK entry via Medicus AI (May 2026)
-- **AI trajectory**: Consultation Assistant (Oct 2024) → Telephone Assistant (Dec 2025) → UK expansion (May 2026)
-- Strategic move: scheduling tool → AI-native clinical workflow partner
-- CEO: Stanislas Niox-Chateau. AI is explicitly physician-augmentation, not replacement.
-
-> [!gap] CPO identity not confirmed. Enrich with Gemini Deep Research when available.
+- Founded 2013 Paris. Operational profitability confirmed 2025. ARR ~€422M. R&D €115–150M/year.
+- 70M+ patients, 350K+ practitioners, 100M+ bookings/year. No-show rate ~2%.
+- Markets: France (dominant), Germany, Italy — UK entry via Medicus acquisition (May 2026, £100M)
+- **AI trajectory**: Consultation Assistant (Oct 2024, 1M+ consults, 50% doc time cut) → Telephone Assistant (Dec 2025, 200K+ calls, 6h/week saved) → Inria joint lab (sovereign AI)
+- Strategic move: scheduling tool → AI-native clinical workflow OS for practitioners
+- CEO: Stanislas Niox-Chateau. Maxim: "physician stays in control of everything."
+- Design team: 50+ people. Mandate: **"evolve DS to support agentic AI components"**
 
 ---
 
 ## AI Strategy Signals
 
-- Pre-consultation AI history feature already exists (patient app, days before appointment)
-- AI gathers history from patient → context for practitioner before consultation starts
-- Reduces admin burden during consultation (note-taking, prescription, history reconstruction)
-- Design system likely lacks AI-native primitives (conversational UI, provenance indicators, consent gates)
+- Pre-consultation AI history: patient app, days before appointment → context for practitioner
+- Feature already exists — the exercise is about building the engineering system to iterate/scale it
+- Consultation Assistant: ambient scribe, audio deleted in 48h, human validation required before committing to EHR
+- Sovereign AI play: Inria lab (€20M) building "general medical intelligence" — model-agnostic DS is strategic imperative
+- Nabla Copilot = best-in-class UX competitor (standalone, no integration); Doctolib wins on workflow integration
+- UK: Medicus bought 25 years of NHS regulatory clearance — regulatory moat = product moat
 
-> [!gap] No source on current Doctolib design system technology (Figma? Tokens? React component library?)
+---
+
+## Key Regulatory Facts (cite in interview)
+
+- GDPR Art.9: health data = special category → `ConsentGate` is a compliance requirement, not a UX choice
+- EU AI Act High-Risk: Art.14 (human oversight), Art.13 (transparency/provenance), Art.12 (audit logs)
+- Automation bias: courts hold physicians liable for accepting AI outputs without verification → design for productive friction
+- Provenance rule: "patient reported..." never "patient has..." (transparency + liability protection)
 
 ---
 
 ## Sources
 
-- `[[raw/research/live-case-brief.pdf]]` — original interview brief PDF
-- `wiki/overview.md` — Doctolib executive summary (medium confidence, training knowledge)
+- `[[raw/research/live-case-brief.pdf]]` — original interview brief
+- `[[raw/research/gemini-deep-research]]` — full strategic analysis (financials, AI features, competition, regulation, role)
+- `[[overview]]` — Doctolib executive summary (high confidence)
+- `[[concepts/regulatory-constraints]]` — EU AI Act, GDPR, automation bias
+- `[[concepts/competitive-landscape]]` — Nabla, DocPlanner, EMIS/TPP, UK play
+- `[[stakeholders/stanislas-niox-chateau]]` — CEO profile, quotes, philosophy
 
 ---
 
 ## Cases / Frameworks
 
-**PRIMARY**: `[[cases/case-answer-framework]]` — complete answer framework (Part 1: Design + Part 2: Engineering)
+**READ THIS**: `[[cases/case-answer-framework]]`
 
-Key angles:
-- Reframe: "This is a design system problem, not a feature design problem"
-- Two surfaces: patient intake (async, structured) + pro summary (scannable digest)
-- Core deliverable: AI Interaction Layer (Layers 3–4 in the DS)
-- Six components: `AIMessage`, `IntakeQuestion`, `ConsentGate`, `SummaryCard`, `StreamingText`, `ProviderBadge`
-- 4-week plan: Discovery → Prototype → Integration → Governance
+Opening frame: "This is a design system problem, not a feature design problem."
+Two surfaces: patient intake (async, structured) → pro summary (scannable, <10s)
+Core deliverable: AI Interaction Layer (DS Layers 3–4), 6 components:
+`AIMessage`, `IntakeQuestion`, `ConsentGate`, `SummaryCard`, `StreamingText`, `ProviderBadge`
+4-week plan: Discovery → Prototype → Integration → Governance
+Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship."
 
-**BRIEF**: `[[cases/live-case-brief]]` — structured analysis of the actual brief
+**BRIEF ANALYSIS**: `[[cases/live-case-brief]]`
+Role: Design Engineer (builds infrastructure). 40 min work, 15 min present, 20 min Q&A.
 
 ---
 
 ## Active Threads
 
-- **ROLE**: Design Engineer (builds design infrastructure) — NOT AI Product Designer
-- **INTERVIEW**: 90 min live case. 40 min work, 15 min present, 20 min Q&A
-- **PENDING**: Gemini Deep Research results not yet received — paste when ready
-- **PENDING**: Doctolib Pro sandbox not yet explored — credentials in `raw/`
+- **INTERVIEW**: Design Engineer live case — 90 min total, AI pre-consultation history feature
+- **PENDING**: Doctolib Pro sandbox not yet explored (credentials in `raw/research/`)
+- ~~Gemini Deep Research~~ — ingested 2026-06-22
 
-> [!gap] Doctolib Pro sandbox not yet explored. Credentials available.
+> [!gap] Design system technology not confirmed (Figma? tokens? React library name?). Explore in sandbox.
 
 ---
 
@@ -89,5 +101,8 @@ Key angles:
 - [[index]] — master catalog
 - [[log]] — operation log
 - [[overview]] — Doctolib executive summary
-- [[cases/live-case-brief]] — interview brief analysis
-- [[cases/case-answer-framework]] — main answer framework (READ THIS)
+- [[cases/case-answer-framework]] — MAIN ANSWER (read this)
+- [[cases/live-case-brief]] — brief analysis
+- [[concepts/regulatory-constraints]] — EU AI Act + GDPR
+- [[concepts/competitive-landscape]] — Nabla, EMIS/TPP, UK
+- [[stakeholders/stanislas-niox-chateau]] — CEO profile
