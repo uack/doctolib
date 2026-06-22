@@ -86,7 +86,7 @@ Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship
 - **Dictation = premium upsell** ("Upgrade to unlock") — separate from Consultation Assistant.
 - **No `/configuration/ai`** — AI settings don't exist yet; would need to be built.
 - **Communication pipeline**: 5 touchpoints today. AI intake = new 6th between week-before and day-before.
-- **Question editor = closed 3-type library** (Age, New patient, Referral). Multiple questions per rule set OK, but types are hardcoded. `IntakeQuestion` = net-new, cannot extend this.
+- **Question editor = closed library** (5 types per docs: Age, New patient, Quarterly quota, Referral, Private-only). Question *wording* is hardcoded by Doctolib — practitioners cannot customize text. `IntakeQuestion` = net-new.
 - **Communication matrix = 5 channels only** (Confirmation, Week before, SMS/push, Day before, Opinion). No 6th slot — AI intake is a genuinely new touchpoint.
 
 ---
