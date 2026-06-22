@@ -12,7 +12,7 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — Pro settings deep dive ingested (12 screenshots). Question system confirmed: 3 types only, no custom. Wiki at 13 pages.
+2026-06-22 — Help center docs ingested. 5 official question types confirmed, wording hardcoded. Wiki at 14 pages.
 
 ---
 
