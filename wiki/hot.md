@@ -12,7 +12,7 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — Help center docs ingested. 5 official question types confirmed, wording hardcoded. Wiki at 14 pages.
+2026-06-22 — Waiting Room Companion brief expanded. 7 gaps identified + filled. DESIGN.md created from live CSS. Wiki at 16 pages.
 
 ---
 
