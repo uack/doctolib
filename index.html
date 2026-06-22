@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctolib — Waiting Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Oxygen tokens ── */
+    :root {
+      --brand: #107aca;
+      --brand-dark: #00264c;
+      --brand-light: #e7f4fd;
+      --blue100: #e7f4fd;
+      --blue200: #d0e9fb;
+      --blue300: #a0d2f8;
+      --blue400: #5ab0f2;
+      --blue500: #107aca;
+      --white: #ffffff;
+      --surface-subtle: #e4edf6;
+      --border-default: #c9d9e8;
+      --text-body: #294056;
+      --text-primary: #00264c;
+      --text-secondary: #192634;
+      --success: #79c653;
+      --success-dark: #32730d;
+      --success-light: #eefee7;
+      --danger: #ff4773;
+      --danger-dark: #e5004c;
+      --warning: #f57b3d;
+      --warning-light: #fef5f0;
+      --ai-surface: #e7f4fd;
+      --ai-provenance: #f0f4f8;
+      --card-shadow: rgba(5,43,71,0.07) 0 2px 4px, rgba(5,43,71,0.09) 0 5px 25px;
+      --font-display: 'Montserrat', arial, sans-serif;
+      --font-body: 'Open Sans', Roboto, arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-body);
+      background: var(--surface-subtle);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      background: var(--brand);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { font-style: italic; }
+
+    /* ── Page shell ── */
+    .page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 48px;
+      gap: 16px;
+    }
+    /* Vertically center single-card screens (Welcome, Done, Error) */
+    .page.page-centered {
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .page-inner {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      padding: 24px;
+    }
+
+    /* ── Headings ── */
+    h1, h2 {
+      font-family: var(--font-display);
+      color: var(--text-primary);
+    }
+    h1 { font-size: 22px; line-height: 1.3; }
+    h2 { font-size: 18px; line-height: 1.3; }
+    .sub { font-size: 14px; color: var(--text-body); margin-top: 8px; line-height: 1.5; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      background: var(--brand-dark);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 32px;
+      height: 60px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      background: var(--white);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: 14px;
+      border: 1px solid var(--border-default);
+      border-radius: 16px;
+      height: 40px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: var(--surface-subtle); }
+
+    /* ── ConsentGate — first-time (attention register) ── */
+    .consent-gate-new {
+      background: var(--warning-light);
+      border: 1px solid var(--warning);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+    .consent-gate-new .consent-icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .consent-gate-new strong { color: var(--brand-dark); }
+
+    /* ── ConsentGate — returning (info register) ── */
+    .consent-gate-returning {
+      background: var(--blue100);
+      border: 1px solid var(--blue200);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    /* ── AIMessage ── */
+    .ai-message {
+      background: var(--ai-surface);
+      border: 1px solid var(--blue200);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    /* ── ProviderBadge ── */
+    .provider-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--ai-provenance);
+      border: 1px solid var(--border-default);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .provider-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--brand);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Mic button ── */
+    .mic-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 0 8px;
+    }
+    .mic-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.1s;
+      position: relative;
+    }
+    .mic-btn:active { transform: scale(0.95); }
+    .mic-btn.listening { background: var(--danger); }
+    .mic-btn.processing { background: var(--brand); opacity: 0.6; cursor: not-allowed; }
+    .mic-btn svg { pointer-events: none; }
+
+    .mic-pulse {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--danger);
+      animation: pulse 1.2s ease-out infinite;
+      opacity: 0;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(1.7); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mic-pulse { animation: none; }
+    }
+
+    .mic-label {
+      font-size: 13px;
+      color: var(--text-body);
+      text-align: center;
+    }
+    .mic-label strong { color: var(--text-primary); }
+
+    /* ── Transcript ── */
+    .transcript-text {
+      font-size: 14px;
+      color: var(--text-body);
+      font-style: italic;
+      min-height: 20px;
+      line-height: 1.6;
+    }
+
+    /* ── Streaming cursor ── */
+    .streaming-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--blue300);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .streaming-cursor { animation: none; }
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--blue200);
+      border-radius: 4px;
+      overflow: hidden;
+      outline: 1px solid var(--blue300);
+      outline-offset: 0;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--brand);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+      min-width: 8px;
+    }
+
+    /* ── SummaryCard ── */
+    .summary-card-header {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--brand-dark);
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .summary-card-header::before {
+      content: '';
+      width: 3px;
+      height: 18px;
+      background: var(--brand);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .summary-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--surface-subtle);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .summary-item:last-child { border-bottom: none; }
+    .summary-item-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      margin-bottom: 3px;
+    }
+    .summary-provenance {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ── Done screen ── */
+    .done-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--success-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 16px;
+    }
+
+    /* ── Error banner ── */
+    .error-banner {
+      background: #fff5f6;
+      border: 1px solid var(--danger);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--danger-dark);
+      display: none;
+    }
+    .error-banner.visible { display: block; }
+
+    /* ── Utility ── */
+    .hidden { display: none !important; }
+    .text-xs { font-size: 12px; }
+    .text-muted { color: var(--text-secondary); }
+    .mt-4 { margin-top: 4px; }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .gap-8 { gap: 8px; }
+    .flex-col { display: flex; flex-direction: column; }
+    .flex-row { display: flex; flex-direction: row; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .w-full { width: 100%; }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <div class="nav-logo"><span>doctolib</span></div>
+</nav>
+
+<!-- ── Mount point ── -->
+<main id="app" class="page"></main>
+
+<script>
+// ══════════════════════════════════════════════
+// State machine
+// ══════════════════════════════════════════════
+const QUESTIONS = [
+  {
+    id: 'reason',
+    label: 'Reason for visit',
+    prompt: 'What is the main reason for your visit today?',
+  },
+  {
+    id: 'duration',
+    label: 'Symptom duration',
+    prompt: 'How long have you been experiencing this?',
+  },
+  {
+    id: 'flag',
+    label: 'Anything else',
+    prompt: 'Is there anything else you would like your doctor to know before the appointment?',
+  },
+];
+
+const SCREENS = {
+  WELCOME: 'welcome',
+  CONSENT: 'consent',
+  QUESTION: 'question',
+  REVIEW: 'review',
+  SUBMITTING: 'submitting',
+  DONE: 'done',
+  ERROR: 'error',
+};
+
+const MIC = {
+  IDLE: 'idle',
+  LISTENING: 'listening',
+  PROCESSING: 'processing',
+  DONE: 'done',
+};
+
+let state = {
+  screen: SCREENS.WELCOME,
+  micState: MIC.IDLE,
+  questionIdx: 0,
+  answers: [],         // [{ question, answer, aiAck }]
+  currentTranscript: '',
+  currentAiText: '',
+  streaming: false,
+  isFirstTime: true,   // ConsentGate variant
+  llmMessages: [],     // conversation history for the LLM
+  error: null,
+};
+
+function setState(patch) {
+  state = { ...state, ...patch };
+  render(state);
+}
+
+// ══════════════════════════════════════════════
+// Render
+// ══════════════════════════════════════════════
+const CENTERED_SCREENS = new Set([SCREENS.WELCOME, SCREENS.SUBMITTING, SCREENS.DONE, SCREENS.ERROR]);
+
+function render(s) {
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  // Vertically center simple single-card screens; top-align flow screens
+  app.className = 'page' + (CENTERED_SCREENS.has(s.screen) ? ' page-centered' : '');
+
+  const inner = document.createElement('div');
+  inner.className = 'page-inner';
+
+  switch (s.screen) {
+    case SCREENS.WELCOME:   inner.appendChild(renderWelcome(s)); break;
+    case SCREENS.CONSENT:   inner.appendChild(renderConsent(s)); break;
+    case SCREENS.QUESTION:  inner.appendChild(renderQuestion(s)); break;
+    case SCREENS.REVIEW:    inner.appendChild(renderReview(s)); break;
+    case SCREENS.SUBMITTING:inner.appendChild(renderSubmitting()); break;
+    case SCREENS.DONE:      inner.appendChild(renderDone()); break;
+    case SCREENS.ERROR:     inner.appendChild(renderError(s)); break;
+  }
+
+  app.appendChild(inner);
+}
+
+// ── Screen: Welcome ──
+function renderWelcome(s) {
+  const frag = document.createDocumentFragment();
+
+  const hero = card();
+  hero.innerHTML = `
+    <h1>Your appointment is confirmed</h1>
+    <p class="sub">Before you see your doctor, we have a few quick questions to help them prepare.</p>
+    <p class="sub mt-4">Your answers are confidential and go directly to your care team.</p>
+    <div class="mt-16" style="display:flex;gap:8px;align-items:center;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#107aca" stroke-width="1.5"/><path d="M5 8.5L7 10.5L11 6" stroke="#107aca" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="text-xs text-muted">Takes about 2 minutes</span>
+    </div>
+  `;
+  frag.appendChild(hero);
+
+  const btn = el('button', 'btn-primary mt-8');
+  btn.textContent = 'Start';
+  btn.style.marginTop = '8px';
+  btn.addEventListener('click', () => setState({ screen: SCREENS.CONSENT }));
+  frag.appendChild(btn);
+
+  return frag;
+}
+
+// ── Screen: Consent ──
+function renderConsent(s) {
+  const frag = document.createDocumentFragment();
+
+  if (s.isFirstTime) {
+    // First-time: attention register
+    const gate = el('div', 'consent-gate-new');
+    gate.innerHTML = `
+      <div class="consent-icon">⚠️</div>
+      <strong>Before we start — your data rights</strong>
+      <p style="margin-top:8px;line-height:1.6;">
+        I authorise the processing of my health information to prepare a summary for my doctor, using artificial intelligence tools. This information is strictly confidential and will only be shared with my care team.
+      </p>
+      <p style="margin-top:8px;line-height:1.6;">
+        You may revoke this consent at any time in your account settings.
+      </p>
+    `;
+    frag.appendChild(gate);
+
+    const accept = el('button', 'btn-primary');
+    accept.textContent = 'I agree — continue';
+    accept.style.marginTop = '16px';
+    accept.addEventListener('click', () => startIntake());
+    frag.appendChild(accept);
+
+    const decline = el('button', 'btn-secondary');
+    decline.textContent = 'No thanks, skip this step';
+    decline.style.marginTop = '8px';
+    decline.addEventListener('click', () => setState({ screen: SCREENS.DONE }));
+    frag.appendChild(decline);
+  } else {
+    // Returning: info register
+    const gate = el('div', 'consent-gate-returning');
+    gate.innerHTML = `
+      <strong>AI-assisted intake is on</strong> — your previous consent is active.
+      <span class="text-xs" style="display:block;margin-top:4px;">You can revoke anytime in account settings.</span>
+    `;
+    frag.appendChild(gate);
+    // Auto-advance after brief delay
+    setTimeout(() => startIntake(), 1200);
+  }
+
+  return frag;
+}
+
+function startIntake() {
+  const q = QUESTIONS[0];
+  const systemMsg = `You are a medical intake assistant. Ask the following question and acknowledge the patient's answer.\n\nQuestion: ${q.prompt}`;
+  setState({
+    screen: SCREENS.QUESTION,
+    questionIdx: 0,
+    llmMessages: [],
+    micState: MIC.IDLE,
+    currentTranscript: '',
+    currentAiText: '',
+  });
+  // Prime first question via LLM
+  askLLM(q.prompt, true);
+}
+
+// ── Screen: Question ──
+function renderQuestion(s) {
+  const frag = document.createDocumentFragment();
+  const q = QUESTIONS[s.questionIdx];
+  const totalQ = QUESTIONS.length;
+  const progress = ((s.questionIdx) / totalQ) * 100;
+
+  // AI message card — contains progress + question + badge
+  const msgCard = card();
+  msgCard.style.paddingTop = '16px';
+
+  // Progress bar + step label inside the card
+  const progressHeader = el('div');
+  progressHeader.style.cssText = 'display:flex;flex-direction:column;gap:6px;margin-bottom:12px;';
+
+  const progressWrap = el('div', 'progress-bar-wrap');
+  const progressFill = el('div', 'progress-bar-fill');
+  progressFill.style.width = `${progress}%`;
+  progressWrap.appendChild(progressFill);
+  progressHeader.appendChild(progressWrap);
+
+  const stepLabel = el('div', 'text-xs text-muted');
+  stepLabel.style.textAlign = 'right';
+  stepLabel.textContent = `Question ${s.questionIdx + 1} of ${totalQ}`;
+  progressHeader.appendChild(stepLabel);
+
+  msgCard.appendChild(progressHeader);
+
+  const aiMsg = el('div', 'ai-message');
+
+  if (s.streaming || s.currentAiText) {
+    aiMsg.innerHTML = '';
+    const textNode = document.createTextNode(s.currentAiText);
+    aiMsg.appendChild(textNode);
+    if (s.streaming) {
+      const cursor = el('span', 'streaming-cursor');
+      aiMsg.appendChild(cursor);
+    }
+  } else {
+    aiMsg.textContent = q.prompt;
+  }
+  msgCard.appendChild(aiMsg);
+
+  // ProviderBadge anchored below the bubble, inside the card
+  const badge = providerBadge();
+  badge.style.marginTop = '10px';
+  msgCard.appendChild(badge);
+
+  frag.appendChild(msgCard);
+
+  // Mic
+  const micWrap = el('div', 'mic-wrap');
+
+  const micBtn = el('button', 'mic-btn');
+  if (s.micState === MIC.LISTENING) micBtn.classList.add('listening');
+  if (s.micState === MIC.PROCESSING) micBtn.classList.add('processing');
+
+  if (s.micState === MIC.LISTENING) {
+    const pulse = el('div', 'mic-pulse');
+    micBtn.appendChild(pulse);
+  }
+
+  micBtn.innerHTML += `
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+      <line x1="12" y1="19" x2="12" y2="23"/>
+      <line x1="8" y1="23" x2="16" y2="23"/>
+    </svg>
+  `;
+
+  if (s.micState !== MIC.PROCESSING) {
+    micBtn.addEventListener('click', handleMicClick);
+  }
+  micWrap.appendChild(micBtn);
+
+  const micLabelEl = el('div', 'mic-label');
+  if (s.micState === MIC.IDLE) {
+    micLabelEl.innerHTML = '<strong>Tap to speak</strong> your answer';
+  } else if (s.micState === MIC.LISTENING) {
+    micLabelEl.innerHTML = '<strong>Listening…</strong> tap again to stop';
+  } else if (s.micState === MIC.PROCESSING) {
+    micLabelEl.innerHTML = '<strong>Processing…</strong>';
+  } else {
+    micLabelEl.innerHTML = '<strong>Answer recorded</strong>';
+  }
+  micWrap.appendChild(micLabelEl);
+
+  // Transcript
+  if (s.currentTranscript) {
+    const transcriptLabel = el('div', 'text-xs text-muted');
+    transcriptLabel.style.marginTop = '4px';
+    transcriptLabel.textContent = 'Your answer:';
+    micWrap.appendChild(transcriptLabel);
+
+    const transcriptEl = el('div', 'transcript-text');
+    transcriptEl.textContent = `"${s.currentTranscript}"`;
+    micWrap.appendChild(transcriptEl);
+  }
+
+  frag.appendChild(micWrap);
+
+  // Error
+  const errBanner = el('div', `error-banner${s.error ? ' visible' : ''}`);
+  errBanner.textContent = s.error || '';
+  frag.appendChild(errBanner);
+
+  return frag;
+}
+
+// ── Screen: Review ──
+function renderReview(s) {
+  const frag = document.createDocumentFragment();
+
+  const heading = el('h2');
+  heading.textContent = 'Here\'s what you told us';
+  frag.appendChild(heading);
+
+  const sub = el('p', 'sub');
+  sub.textContent = 'Your doctor will review this before your appointment.';
+  frag.appendChild(sub);
+
+  const summaryCard = card();
+
+  const header = el('div', 'summary-card-header');
+  header.textContent = 'Patient Summary';
+  summaryCard.appendChild(header);
+
+  s.answers.forEach((a) => {
+    const item = el('div', 'summary-item');
+    const labelEl = el('div', 'summary-item-label');
+    labelEl.textContent = a.question;
+    item.appendChild(labelEl);
+
+    const answerEl = el('div');
+    answerEl.style.fontSize = '14px';
+    answerEl.style.color = 'var(--text-body)';
+    answerEl.textContent = a.answer;
+    item.appendChild(answerEl);
+
+    const prov = el('div', 'summary-provenance');
+    prov.textContent = 'Patient reported';
+    item.appendChild(prov);
+
+    summaryCard.appendChild(item);
+  });
+
+  const badge = providerBadge();
+  badge.style.marginTop = '16px';
+  summaryCard.appendChild(badge);
+
+  frag.appendChild(summaryCard);
+
+  const submitBtn = el('button', 'btn-primary');
+  submitBtn.textContent = 'Send to my doctor';
+  submitBtn.style.marginTop = '8px';
+  submitBtn.addEventListener('click', () => {
+    setState({ screen: SCREENS.SUBMITTING });
+    setTimeout(() => setState({ screen: SCREENS.DONE }), 1800);
+  });
+  frag.appendChild(submitBtn);
+
+  const editBtn = el('button', 'btn-secondary');
+  editBtn.textContent = 'Start over';
+  editBtn.style.marginTop = '8px';
+  editBtn.addEventListener('click', () => setState({
+    screen: SCREENS.WELCOME,
+    questionIdx: 0,
+    answers: [],
+    llmMessages: [],
+    currentTranscript: '',
+    currentAiText: '',
+    micState: MIC.IDLE,
+  }));
+  frag.appendChild(editBtn);
+
+  return frag;
+}
+
+// ── Screen: Submitting ──
+function renderSubmitting() {
+  const frag = document.createDocumentFragment();
+  const c = card();
+  c.style.textAlign = 'center';
+  c.style.padding = '40px 24px';
+  c.innerHTML = `
+    <div style="font-size:32px;margin-bottom:16px;">⏳</div>
+    <h2>Sending to your doctor…</h2>
+  `;
+  frag.appendChild(c);
+  return frag;
+}
+
+// ── Screen: Done ──
+function renderDone() {
+  const frag = document.createDocumentFragment();
+  const c = card();
+  c.style.textAlign = 'center';
+  c.style.padding = '40px 24px';
+  c.innerHTML = `
+    <div class="done-icon">✓</div>
+    <h2>All done!</h2>
+    <p class="sub mt-8">Your doctor has received your responses. You'll be called shortly.</p>
+    <p class="sub mt-4" style="font-size:12px;">Data will be deleted 48 hours after your appointment.</p>
+  `;
+  frag.appendChild(c);
+
+  const backLink = el('a');
+  backLink.href = '#';
+  backLink.textContent = 'Return to your appointments';
+  backLink.style.cssText = 'display:block;text-align:center;font-size:13px;color:var(--brand);margin-top:12px;text-decoration:none;';
+  backLink.addEventListener('click', (e) => e.preventDefault());
+  frag.appendChild(backLink);
+
+  return frag;
+}
+
+// ── Screen: Error ──
+function renderError(s) {
+  const frag = document.createDocumentFragment();
+  const c = card();
+  c.style.textAlign = 'center';
+  c.style.padding = '32px 24px';
+  c.innerHTML = `
+    <div style="font-size:32px;margin-bottom:16px;">⚠️</div>
+    <h2>Something went wrong</h2>
+    <p class="sub mt-8">${s.error || 'We couldn\'t reach the assistant. Your information is safe — tap Try Again or come back later.'}</p>
+  `;
+  const retry = el('button', 'btn-primary');
+  retry.textContent = 'Try again';
+  retry.style.marginTop = '16px';
+  retry.addEventListener('click', () => setState({ screen: SCREENS.WELCOME, error: null }));
+  c.appendChild(retry);
+  frag.appendChild(c);
+  return frag;
+}
+
+// ══════════════════════════════════════════════
+// Mic logic (Web Speech API + fallback)
+// ══════════════════════════════════════════════
+let recognition = null;
+
+function handleMicClick() {
+  if (state.micState === MIC.IDLE) {
+    startListening();
+  } else if (state.micState === MIC.LISTENING) {
+    stopListening();
+  }
+}
+
+function startListening() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    // Fallback: type your answer
+    const answer = prompt('Type your answer (microphone not available in this browser):');
+    if (answer && answer.trim()) {
+      handleAnswer(answer.trim());
+    }
+    return;
+  }
+
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    setState({ micState: MIC.LISTENING, currentTranscript: '', error: null });
+  };
+
+  recognition.onresult = (event) => {
+    let interim = '';
+    let final = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const t = event.results[i][0].transcript;
+      if (event.results[i].isFinal) final += t;
+      else interim += t;
+    }
+    setState({ currentTranscript: final || interim });
+  };
+
+  recognition.onend = () => {
+    const transcript = state.currentTranscript;
+    if (transcript && transcript.trim()) {
+      handleAnswer(transcript.trim());
+    } else {
+      setState({ micState: MIC.IDLE });
+    }
+  };
+
+  recognition.onerror = (event) => {
+    if (event.error === 'no-speech') {
+      setState({ micState: MIC.IDLE, error: 'No speech detected. Please try again.' });
+    } else if (event.error === 'not-allowed') {
+      setState({ micState: MIC.IDLE, error: 'Microphone access denied. Check browser settings.' });
+    } else {
+      setState({ micState: MIC.IDLE, error: 'Microphone error. Try typing instead.' });
+    }
+  };
+
+  recognition.start();
+}
+
+function stopListening() {
+  if (recognition) {
+    recognition.stop();
+  }
+  setState({ micState: MIC.PROCESSING });
+}
+
+// ══════════════════════════════════════════════
+// Answer → LLM pipeline
+// ══════════════════════════════════════════════
+async function handleAnswer(transcript) {
+  const q = QUESTIONS[state.questionIdx];
+
+  setState({ micState: MIC.PROCESSING, currentTranscript: transcript });
+
+  // Build messages
+  const newMessages = [
+    ...state.llmMessages,
+    { role: 'user', content: transcript },
+  ];
+
+  // Ask LLM to acknowledge
+  try {
+    const ack = await callLLM(newMessages);
+
+    const updatedMessages = [
+      ...newMessages,
+      { role: 'assistant', content: ack },
+    ];
+
+    const newAnswer = { question: q.label, answer: transcript, aiAck: ack };
+    const answers = [...state.answers, newAnswer];
+    const nextIdx = state.questionIdx + 1;
+
+    if (nextIdx < QUESTIONS.length) {
+      // Ask next question
+      const nextQ = QUESTIONS[nextIdx];
+      const messagesWithNext = [
+        ...updatedMessages,
+        { role: 'assistant', content: nextQ.prompt },
+      ];
+
+      setState({
+        answers,
+        questionIdx: nextIdx,
+        llmMessages: messagesWithNext,
+        micState: MIC.IDLE,
+        currentTranscript: '',
+        currentAiText: '',
+        streaming: false,
+        error: null,
+      });
+
+      // Stream the next question
+      streamText(nextQ.prompt);
+    } else {
+      // All done — go to review
+      setState({
+        answers,
+        llmMessages: updatedMessages,
+        screen: SCREENS.REVIEW,
+        micState: MIC.IDLE,
+        currentTranscript: '',
+        currentAiText: '',
+        streaming: false,
+        error: null,
+      });
+    }
+  } catch (err) {
+    setState({
+      micState: MIC.IDLE,
+      error: 'We couldn\'t reach the assistant. Your information is safe — tap Try Again or come back later.',
+    });
+  }
+}
+
+async function askLLM(questionText, isFirst) {
+  const messages = isFirst
+    ? [{ role: 'user', content: `[Start intake. Ask: "${questionText}"]` }]
+    : state.llmMessages;
+
+  try {
+    const response = await callLLM(messages);
+    setState({ llmMessages: [...messages, { role: 'assistant', content: response }] });
+    streamText(questionText);
+  } catch (err) {
+    // Fallback: just show the hardcoded question directly
+    streamText(questionText);
+  }
+}
+
+async function callLLM(messages) {
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages }),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  return data.content || '';
+}
+
+// ══════════════════════════════════════════════
+// Fake streaming
+// ══════════════════════════════════════════════
+let streamingTimer = null;
+
+function streamText(text) {
+  if (streamingTimer) clearInterval(streamingTimer);
+  const words = text.split(' ');
+  let i = 0;
+  setState({ streaming: true, currentAiText: '' });
+
+  streamingTimer = setInterval(() => {
+    i++;
+    setState({ currentAiText: words.slice(0, i).join(' ') });
+    if (i >= words.length) {
+      clearInterval(streamingTimer);
+      setState({ streaming: false });
+    }
+  }, 80);
+}
+
+// ══════════════════════════════════════════════
+// DOM helpers
+// ══════════════════════════════════════════════
+function el(tag, className) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  return e;
+}
+
+function card() {
+  return el('div', 'card');
+}
+
+function providerBadge() {
+  const badge = el('div', 'provider-badge');
+  const dot = el('div', 'provider-badge-dot');
+  badge.appendChild(dot);
+  const label = document.createTextNode('Generated by AI · Based on patient responses');
+  badge.appendChild(label);
+  return badge;
+}
+
+// ══════════════════════════════════════════════
+// Boot
+// ══════════════════════════════════════════════
+render(state);
+</script>
+</body>
+</html>
