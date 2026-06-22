@@ -21,6 +21,11 @@ key_claims:
   - "Search results: 2059 GPs in Berlin — list shows name, specialty, address, insurance acceptance, available slot times"
   - "Practitioner profile: booking entry point showing availability calendar and appointment reasons — pre-booking questions triggered here, not days before"
   - "No patient-facing pre-consultation AI intake flow visible anywhere in the app — the feature described in the brief does not exist yet"
+  - "Pre-booking instructions dialog: practitioner-authored gate (address update, cancellation policy, billing rules) shown before slot selection — distinct from AI intake"
+  - "Checkout page: single question 'Have you visited this practitioner in the past?' (Yes/No radio) — only patient-provided data collected at booking time"
+  - "Confirmation page: 'Send documents' CTA visible, 'Want an earlier appointment?' waitlist toggle — no AI pre-consultation prompt"
+  - "Send documents: only available on upcoming appointments, not past appointments — appointment-scoped document sharing flow"
+  - "Cancellation flow: simple 'Are you sure?' dialog (Keep / Confirm Cancellation) — no cancellation fee enforcement in UI for far-future slots"
 related:
   - "[[sources/sandbox-pro-doctolib]]"
   - "[[cases/case-answer-framework]]"
