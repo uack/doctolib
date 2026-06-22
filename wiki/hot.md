@@ -62,13 +62,10 @@ pages_total:    12
 ## Sources
 
 - `[[raw/research/live-case-brief.pdf]]` — original interview brief
-- `[[raw/research/gemini-deep-research]]` — full strategic analysis (financials, AI features, competition, regulation, role)
-- `[[sources/sandbox-pro-doctolib]]` — full sandbox walkthrough (20 screenshots, all major sections)
-- `[[sources/sandbox-b2c-doctolib]]` — full B2C patient app walkthrough (13 screenshots, consent flows)
-- `[[overview]]` — Doctolib executive summary (high confidence)
-- `[[concepts/regulatory-constraints]]` — EU AI Act, GDPR, automation bias
-- `[[concepts/competitive-landscape]]` — Nabla, DocPlanner, EMIS/TPP, UK play
-- `[[stakeholders/stanislas-niox-chateau]]` — CEO profile, quotes, philosophy
+- `[[raw/research/gemini-deep-research]]` — strategic analysis (financials, AI, competition, regulation)
+- `[[sources/sandbox-pro-doctolib]]` — Pro sandbox (20 screenshots)
+- `[[sources/sandbox-b2c-doctolib]]` — B2C patient app (13 screenshots, consent flows)
+- `[[overview]]` · `[[concepts/regulatory-constraints]]` · `[[concepts/competitive-landscape]]` · `[[stakeholders/stanislas-niox-chateau]]`
 
 ---
 
