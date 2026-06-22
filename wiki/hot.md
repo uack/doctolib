@@ -50,12 +50,11 @@ pages_total:    12
 
 ---
 
-## Key Regulatory Facts (cite in interview)
+## Key Regulatory Facts
 
-- GDPR Art.9: health data = special category → `ConsentGate` is a compliance requirement, not a UX choice
-- EU AI Act High-Risk: Art.14 (human oversight), Art.13 (transparency/provenance), Art.12 (audit logs)
-- Automation bias: courts hold physicians liable for accepting AI outputs without verification → design for productive friction
-- Provenance rule: "patient reported..." never "patient has..." (transparency + liability protection)
+- GDPR Art.9: health data = special category → `ConsentGate` = compliance requirement, not UX choice
+- EU AI Act High-Risk: Art.14 (human oversight), Art.13 (transparency), Art.12 (audit logs)
+- Automation bias → design for productive friction. Provenance: "patient reported..." not "patient has..."
 
 ---
 
