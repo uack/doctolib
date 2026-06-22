@@ -51,6 +51,7 @@ tags:
 | `[[raw/research/live-case-brief.pdf]]` | Original interview brief PDF |
 | `[[raw/research/gemini-deep-research]]` | Full Gemini Deep Research — strategic analysis, financials, AI features, regulation, role anatomy |
 | `[[raw/articles/sandbox-01 through sandbox-20.png]]` | Sandbox screenshots (all major sections) |
+| `[[raw/articles/b2c-01 through b2c-13.png]]` | B2C patient app screenshots (all major sections, consent dialogs) |
 
 ## Meta
 
