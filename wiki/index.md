@@ -55,6 +55,8 @@ tags:
 | `[[raw/articles/sandbox-01 through sandbox-20.png]]` | Sandbox screenshots (all major sections) |
 | `[[raw/articles/b2c-01 through b2c-23.png]]` | B2C patient app screenshots (all sections, consent dialogs, full booking+cancel flow) |
 | `[[raw/articles/pro-settings-01 through pro-settings-11.png]]` | Pro settings screenshots (settings homepage, questions, comms matrix, templates) |
+| `[[raw/articles/helpcenter-04-hinweise-abfragen.md]]` | Official DE help article: Instructions vs Questions, 5 blocking types |
+| `[[raw/articles/helpcenter-05-neupatient-blockieren.md]]` | Official DE help article: New patient blocking, matching algorithm, step-by-step setup |
 
 ## Meta
 
