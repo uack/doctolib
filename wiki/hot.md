@@ -59,9 +59,7 @@ pages_total:    13
 
 - `[[raw/research/live-case-brief.pdf]]` — original interview brief
 - `[[raw/research/gemini-deep-research]]` — strategic analysis (financials, AI, competition, regulation)
-- `[[sources/sandbox-pro-doctolib]]` — Pro sandbox (20 screenshots)
-- `[[sources/sandbox-b2c-doctolib]]` — B2C patient app (13 screenshots, consent flows)
-- `[[sources/sandbox-pro-settings-config]]` — Pro settings deep dive (12 screenshots, question system + comms)
+- `[[sources/sandbox-pro-doctolib]]` · `[[sources/sandbox-b2c-doctolib]]` · `[[sources/sandbox-pro-settings-config]]` — Pro/B2C/Settings scrapes
 - `[[overview]]` · `[[concepts/regulatory-constraints]]` · `[[concepts/competitive-landscape]]` · `[[stakeholders/stanislas-niox-chateau]]`
 
 ---
