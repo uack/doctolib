@@ -11,6 +11,19 @@ tags:
 
 # Doctolib Interview Prep — Master Index
 
+## Cases / Frameworks
+
+| Page | Status | Summary |
+|---|---|---|
+| `[[cases/live-case-brief]]` | mature/high | Structured analysis of the interview brief — role, problem, deliverables, assessment criteria |
+| `[[cases/case-answer-framework]]` | solid/high | Main answer framework — design direction + design engineering solution, 4-week plan, Q&A prep |
+
+## Overview
+
+| Page | Status | Summary |
+|---|---|---|
+| `[[overview]]` | developing/medium | Doctolib executive summary — company facts, AI trajectory, key people |
+
 ## Sources
 
 _(populated during research phase)_
@@ -23,6 +36,9 @@ _(populated during research phase)_
 
 _(populated during research phase)_
 
-## Cases / Frameworks
+## Meta
 
-_(populated during interview phase)_
+| Page | Purpose |
+|---|---|
+| `[[hot]]` | Live context cache — read before interview |
+| `[[log]]` | Append-only operation log |
