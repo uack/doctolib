@@ -42,11 +42,10 @@ pages_total:    12
 ## AI Strategy Signals
 
 - Pre-consultation AI history: patient app, days before appointment → context for practitioner
-- Feature already exists — the exercise is about building the engineering system to iterate/scale it
-- Consultation Assistant: ambient scribe, audio deleted in 48h, human validation required before committing to EHR
-- Sovereign AI play: Inria lab (€20M) building "general medical intelligence" — model-agnostic DS is strategic imperative
-- Nabla Copilot = best-in-class UX competitor (standalone, no integration); Doctolib wins on workflow integration
-- UK: Medicus bought 25 years of NHS regulatory clearance — regulatory moat = product moat
+- Feature exists in some form — exercise is about building the engineering system to iterate/scale it
+- Consultation Assistant: ambient scribe, audio deleted 48h, human validation before EHR commit
+- Inria lab (€20M) = sovereign AI, model-agnostic DS is strategic imperative
+- Nabla = best-in-class UX competitor (standalone); Doctolib wins on workflow integration
 
 ---
 
