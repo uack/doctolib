@@ -105,7 +105,7 @@ Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship
 ## Active Threads
 
 - **INTERVIEW**: Design Engineer live case — 90 min total, AI pre-consultation history feature
-- ~~Pro sandbox~~ · ~~B2C patient app~~ · ~~Gemini Deep Research~~ — all ingested 2026-06-22
+- ~~Pro sandbox~~ · ~~B2C patient app~~ · ~~Pro settings config~~ · ~~Gemini Deep Research~~ — all ingested 2026-06-22
 
 > [!gap] DS technology stack not confirmed (React lib, token system).
 
