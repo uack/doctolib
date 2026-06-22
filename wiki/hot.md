@@ -12,7 +12,7 @@ tags:
 # Hot Cache
 
 ## Last Updated
-2026-06-22 — Gemini Deep Research ingested. Wiki at 10 pages. Case framework updated with regulatory + competitive intelligence.
+2026-06-22 — Doctolib Pro sandbox fully ingested (20 screenshots, all major sections). Wiki at 11 pages.
 
 ---
 
