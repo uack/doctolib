@@ -78,6 +78,8 @@ Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship
 
 **BRIEF**: `[[cases/live-case-brief]]` — Design Engineer (builds infrastructure). 40min work, 15min present, 20min Q&A.
 
+**WAITING ROOM**: `[[cases/waiting-room-companion-expansion]]` — 7 gaps in the brief + strengthened interview angles. Read before Q&A.
+
 ---
 
 ## Sandbox Key Findings
