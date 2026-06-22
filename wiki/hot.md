@@ -61,6 +61,7 @@ pages_total:    13
 - `[[raw/research/gemini-deep-research]]` — strategic analysis (financials, AI, competition, regulation)
 - `[[sources/sandbox-pro-doctolib]]` — Pro sandbox (20 screenshots)
 - `[[sources/sandbox-b2c-doctolib]]` — B2C patient app (13 screenshots, consent flows)
+- `[[sources/sandbox-pro-settings-config]]` — Pro settings deep dive (12 screenshots, question system + comms)
 - `[[overview]]` · `[[concepts/regulatory-constraints]]` · `[[concepts/competitive-landscape]]` · `[[stakeholders/stanislas-niox-chateau]]`
 
 ---
