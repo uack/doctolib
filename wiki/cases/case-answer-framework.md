@@ -120,9 +120,10 @@ DS Layer 4 (build): AI patterns — full composed patterns like "pre-consultatio
 **Pitfalls to avoid:**
 
 - **Don't build a generic chat component** — healthcare AI UX is not WhatsApp. Structure beats open-ended.
-- **Don't couple components to a specific AI model** — the component layer must be model-agnostic; swap GPT-4 for Llama without touching the UI
+- **Don't couple components to a specific AI model** — Doctolib is building sovereign AI (Inria lab). The component layer must be model-agnostic; swap any LLM without touching the UI.
 - **Don't skip error states** — AI fails silently or confidently. Design explicit failure, low-confidence, and timeout states from day one.
 - **Don't build in isolation** — if the patient-side team and pro-side team each build their own AI components, you get divergence. The design engineer's job is to be the convergence point.
+- **Don't make "Accept All" the primary CTA** — EU AI Act Art.14 mandates human oversight. A frictionless accept on AI-generated clinical notes creates liability for the physician. Build productive friction: require active review, not passive confirmation.
 
 ### First Steps: 2–4 Weeks
 
