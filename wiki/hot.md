@@ -118,6 +118,7 @@ Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship
 - [[overview]] — Doctolib executive summary
 - [[cases/case-answer-framework]] — MAIN ANSWER (read this)
 - [[cases/live-case-brief]] — brief analysis
+- [[cases/waiting-room-companion-expansion]] — 7 gaps + Q&A angles
 - [[concepts/regulatory-constraints]] — EU AI Act + GDPR
 - [[concepts/competitive-landscape]] — Nabla, EMIS/TPP, UK
 - [[stakeholders/stanislas-niox-chateau]] — CEO profile
