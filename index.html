@@ -947,35 +947,14 @@ async function askLLM(questionText, isFirst) {
 }
 
 async function callLLM(messages) {
-  const systemPrompt = `You are a medical intake assistant for Doctolib. Your role is to collect patient-reported information before a medical appointment.
-
-Rules:
-- Ask only the questions provided to you. Do not ask follow-up questions or probe further.
-- Acknowledge each answer briefly and move to the next question.
-- Never make clinical inferences, diagnoses, or medical judgements.
-- Never say "Patient has..." — always use "Patient reported..."
-- Keep responses under 40 words.
-- If a patient is distressed or mentions an emergency, say: "If this is an emergency, please call 15 (SAMU) or 112 immediately."
-- Respond in the same language the patient uses.`;
-
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const res = await fetch('/api/chat', {
     method: 'POST',
-    headers: {
-      'Authorization': 'Bearer v1-3fbf6b1325e987855046ae8ee1db346e07aed4fa40e463aa1963725a77e3fcca',
-      'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://doctolib-wheat.vercel.app',
-      'X-Title': 'Doctolib Waiting Room Intake',
-    },
-    body: JSON.stringify({
-      model: 'deepseek/deepseek-chat',
-      messages: [{ role: 'system', content: systemPrompt }, ...messages],
-      max_tokens: 200,
-      temperature: 0.3,
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages }),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
-  return data.choices?.[0]?.message?.content || '';
+  return data.content || '';
 }
 
 // ══════════════════════════════════════════════
