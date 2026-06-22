@@ -63,6 +63,7 @@ pages_total:    11
 
 - `[[raw/research/live-case-brief.pdf]]` — original interview brief
 - `[[raw/research/gemini-deep-research]]` — full strategic analysis (financials, AI features, competition, regulation, role)
+- `[[sources/sandbox-pro-doctolib]]` — full sandbox walkthrough (20 screenshots, all major sections)
 - `[[overview]]` — Doctolib executive summary (high confidence)
 - `[[concepts/regulatory-constraints]]` — EU AI Act, GDPR, automation bias
 - `[[concepts/competitive-landscape]]` — Nabla, DocPlanner, EMIS/TPP, UK play
