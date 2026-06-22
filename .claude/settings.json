@@ -1,0 +1,116 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git -C /Users/alesimon/Desktop/Doctolib log --oneline -10)",
+      "Bash(find wiki:*)",
+      "Bash(find raw:*)",
+      "Bash(wc:*)",
+      "Bash(cat)",
+      "Bash(grep:*)",
+      "Bash(grep -r:*)",
+      "Bash(mkdir -p:*)",
+      "Bash(python3:*)",
+      "Bash(python3 -c:*)",
+      "Bash(python3 /tmp/*.py)",
+      "Bash(bash /tmp/*.sh)",
+      "Bash(curl:*)",
+      "Bash(defuddle parse:*)",
+      "Bash(npm install:*)",
+      "Bash(npm list:*)",
+      "Bash(source ~/google-cloud-sdk/path.zsh.inc:*)",
+      "Bash(open:*)",
+      "Read(/Users/alesimon/Desktop/Doctolib/**)",
+      "Read(/Users/alesimon/Obsidian/**)",
+      "Read(/private/tmp/**)",
+      "Read(/tmp/**)",
+      "WebSearch",
+      "WebFetch",
+      "Skill(wiki-ingest)",
+      "Skill(wiki-query)",
+      "Skill(wiki-lint)",
+      "Skill(wiki)",
+      "Skill(autoresearch)",
+      "Skill(save)",
+      "Skill(canvas)",
+      "Skill(context-save)",
+      "Skill(defuddle)",
+      "Skill(obsidian-markdown)",
+      "Skill(obsidian-bases)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__wait_for",
+      "mcp__chrome-devtools__click",
+      "mcp__chrome-devtools__fill",
+      "mcp__chrome-devtools__type_text",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__select_page",
+      "mcp__chrome-devtools__close_page"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "chrome-devtools"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f wiki/hot.md ] && cat wiki/hot.md || true"
+          },
+          {
+            "type": "command",
+            "command": "[ -d wiki ] && python3 -c \"\nimport os, re, json\nwiki_root = 'wiki'\npages = {}\nfor dirpath, _, files in os.walk(wiki_root):\n    for f in files:\n        if f.endswith('.md'):\n            pages[f[:-3]] = os.path.join(dirpath, f)\ndead = set()\nfor title, path in pages.items():\n    with open(path) as fh:\n        content = fh.read()\n    for link in re.findall(r'\\\\[\\\\[([^\\\\]|#\\\\\\\\\\\\\\\\]+)', content):\n        link = link.strip()\n        if '/' not in link and link not in pages:\n            dead.add(link)\nlast_lint = 'unknown'\ntry:\n    with open('wiki/hot.md') as fh:\n        hot = fh.read()\n    m = re.search(r'last_lint:\\\\s+(\\\\S+)', hot)\n    if m: last_lint = m.group(1)\nexcept: pass\nprint(json.dumps({'systemMessage': f'Wiki health: pages={len(pages)} | dead_links={len(dead)} | last_lint={last_lint}'}))\" 2>/dev/null || true"
+          },
+          {
+            "type": "prompt",
+            "prompt": "If a vault is configured for this session (check CLAUDE.md for a wiki/ folder in the current directory), silently read wiki/hot.md to restore recent context. If wiki/hot.md does not exist, do nothing. Do not announce this. Do not report what you read. Just have the context available."
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Hook-injected context does not survive context compaction. If wiki/hot.md exists in the current directory, silently re-read it now to restore the hot cache. Do not announce this."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -d .git ] && git add wiki/ raw/ 2>/dev/null && (git diff --cached --quiet || git commit -m \"wiki: auto-commit $(date '+%Y-%m-%d %H:%M')\" 2>/dev/null) || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$PWD\" && [ -d wiki ] && [ -d .git ] && git diff --name-only HEAD 2>/dev/null | grep -q '^wiki/' && echo 'WIKI_CHANGED: Wiki pages were modified this session. Please update wiki/hot.md with a brief summary of what changed (under 500 words). Use the hot cache format: Last Updated, Key Recent Facts, Recent Changes, Active Threads. Keep it factual. Overwrite the file completely. It is a cache, not a journal.' || true"
+          }
+        ]
+      }
+    ]
+  }
+}
