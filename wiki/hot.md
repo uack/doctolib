@@ -100,14 +100,13 @@ Role: Design Engineer (builds infrastructure). 40 min work, 15 min present, 20 m
 
 ---
 
-## B2C Patient App Key Findings (NEW — read before interview)
+## B2C Patient App Key Findings (NEW)
 
-- **AI intake feature confirmed absent**: No pre-consultation prompt in appointment list, appointment detail, or messaging — genuinely not live yet.
-- **`ConsentGate` production reference exists**: "Consultation audio" consent is the live template — 3-tier (self / self+dependents / decline), explicitly names "artificial intelligence tools", revocable from My Preferences. Copy this pattern exactly.
-- **Two-layer consent required**: Personalized services (master GDPR Art.9 data controller consent) must be active BEFORE consultation audio consent is meaningful. AI intake needs the same prerequisite check.
-- **Documents section = patient health artifact store**: Encrypted, patient-controlled. AI intake may reference these as context but they are NOT the home for AI summaries (summaries are ephemeral, pre-appointment).
-- **Private Notes tab exists**: "Only you have access." Trust register: patients expect fine-grained control. AI intake UX must feel similarly patient-controlled.
-- **No AI features anywhere in B2C today**: Messages empty, appointment detail metadata-only — the gap is confirmed, not assumed.
+- **AI intake confirmed absent**: No pre-consultation prompt in appointment list or detail — genuinely not live yet.
+- **`ConsentGate` production reference**: "Consultation audio" = 3-tier model (self / self+dependents / decline), explicitly names "artificial intelligence tools", revocable any time.
+- **Two-layer consent**: Personalized services (GDPR Art.9 data controller) must be active BEFORE AI audio consent. AI intake needs the same prerequisite check.
+- **Documents**: Encrypted, patient-controlled health artifacts. NOT the home for AI summaries (summaries are ephemeral, pre-appointment).
+- **Private Notes**: "Only you have access" — patients expect fine-grained control over health data.
 
 ---
 
