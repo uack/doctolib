@@ -37,12 +37,19 @@ tags:
 |---|---|---|
 | `[[stakeholders/stanislas-niox-chateau]]` | mature/high | CEO profile — philosophy, quotes, culture signals |
 
+## Sources
+
+| Page | Status | Summary |
+|---|---|---|
+| `[[sources/sandbox-pro-doctolib]]` | mature/high | Full sandbox walkthrough — all major sections, pre-booking question system, Consultation Assistant placement, communication pipeline |
+
 ## Sources (raw)
 
 | File | Content |
 |---|---|
 | `[[raw/research/live-case-brief.pdf]]` | Original interview brief PDF |
 | `[[raw/research/gemini-deep-research]]` | Full Gemini Deep Research — strategic analysis, financials, AI features, regulation, role anatomy |
+| `[[raw/articles/sandbox-01 through sandbox-20.png]]` | Sandbox screenshots (all major sections) |
 
 ## Meta
 
