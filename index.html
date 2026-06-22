@@ -386,6 +386,16 @@
 // ══════════════════════════════════════════════
 // State machine
 // ══════════════════════════════════════════════
+function stripMd(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '$1')   // bold
+    .replace(/\*(.+?)\*/g, '$1')        // italic
+    .replace(/`(.+?)`/g, '$1')          // code
+    .replace(/^#+\s+/gm, '')            // headings
+    .replace(/^[-*]\s+/gm, '')          // list bullets
+    .trim();
+}
+
 const FIRST_QUESTION = 'What is the main reason for your visit today?';
 const MIN_QUESTIONS = 3;
 const MAX_QUESTIONS = 5;
@@ -884,13 +894,13 @@ async function handleAnswer(transcript) {
     const nextMatch = response.match(/NEXT_QUESTION:\s*(.+?)(?=SUMMARY:|DONE|$)/is);
     const isDone = /DONE/i.test(response) && !nextMatch;
 
-    const summary = summaryMatch ? summaryMatch[1].trim() : transcript;
-    const nextQuestion = nextMatch ? nextMatch[1].trim() : null;
-    let ack = response
+    const summary = stripMd(summaryMatch ? summaryMatch[1].trim() : transcript);
+    const nextQuestion = nextMatch ? stripMd(nextMatch[1].trim()) : null;
+    let ack = stripMd(response
       .replace(/SUMMARY:.+/is, '')
       .replace(/NEXT_QUESTION:.+/is, '')
       .replace(/DONE/gi, '')
-      .trim();
+      .trim());
 
     const newAnswer = { question: currentQ, answer: transcript, aiAck: ack, summary };
     const updatedMessages = [...newMessages, { role: 'assistant', content: ack }];
