@@ -387,7 +387,8 @@
 // State machine
 // ══════════════════════════════════════════════
 const FIRST_QUESTION = 'What is the main reason for your visit today?';
-const MAX_QUESTIONS = 3;
+const MIN_QUESTIONS = 2;
+const MAX_QUESTIONS = 5;
 
 const SCREENS = {
   WELCOME: 'welcome',
@@ -410,8 +411,8 @@ let state = {
   screen: SCREENS.WELCOME,
   micState: MIC.IDLE,
   questionIdx: 0,
-  questions: [FIRST_QUESTION],  // grows dynamically as AI generates them
-  answers: [],
+  questions: [FIRST_QUESTION],
+  answers: [],        // [{ question, answer, aiAck, summary }]
   currentTranscript: '',
   currentAiText: '',
   streaming: false,
@@ -539,8 +540,8 @@ function startIntake() {
 function renderQuestion(s) {
   const frag = document.createDocumentFragment();
   const q = s.questions[s.questionIdx];
-  const totalQ = MAX_QUESTIONS;
-  const progress = ((s.questionIdx) / totalQ) * 100;
+  const totalQ = Math.max(s.questions.length, MIN_QUESTIONS);
+  const progress = (s.questionIdx / totalQ) * 100;
 
   // AI message card — contains progress + question + badge
   const msgCard = card();
@@ -558,7 +559,7 @@ function renderQuestion(s) {
 
   const stepLabel = el('div', 'text-xs text-muted');
   stepLabel.style.textAlign = 'right';
-  stepLabel.textContent = `Question ${s.questionIdx + 1} of ${MAX_QUESTIONS}`;
+  stepLabel.textContent = `Question ${s.questionIdx + 1}`;
   progressHeader.appendChild(stepLabel);
 
   msgCard.appendChild(progressHeader);
@@ -672,7 +673,7 @@ function renderReview(s) {
     const answerEl = el('div');
     answerEl.style.fontSize = '14px';
     answerEl.style.color = 'var(--text-body)';
-    answerEl.textContent = a.answer;
+    answerEl.textContent = a.summary || a.answer;
     item.appendChild(answerEl);
 
     const prov = el('div', 'summary-provenance');
@@ -708,7 +709,9 @@ function renderReview(s) {
     llmMessages: [],
     currentTranscript: '',
     currentAiText: '',
+    streaming: false,
     micState: MIC.IDLE,
+    error: null,
   }));
   frag.appendChild(editBtn);
 
@@ -861,48 +864,39 @@ async function handleAnswer(transcript) {
   ];
 
   const nextIdx = state.questionIdx + 1;
-  const isLast = nextIdx >= MAX_QUESTIONS;
+  const mustContinue = nextIdx < MIN_QUESTIONS;
+  const mustStop = nextIdx >= MAX_QUESTIONS;
 
   try {
-    if (isLast) {
-      // Just acknowledge, no next question needed
-      const ack = await callLLM(newMessages);
-      const updatedMessages = [...newMessages, { role: 'assistant', content: ack }];
-      const newAnswer = { question: currentQ, answer: transcript, aiAck: ack };
+    const instruction = mustStop
+      ? `Acknowledge the patient's answer in 1 sentence that references what they said. Then provide a one-sentence summary of their answer for the doctor's record, starting with "SUMMARY:".`
+      : `Acknowledge the patient's answer in 1 sentence that references what they said. Then provide a one-sentence summary for the doctor starting with "SUMMARY:". ${mustContinue ? 'Then ask a relevant follow-up question starting with "NEXT_QUESTION:".' : 'If you have enough information, end with "DONE". Otherwise ask a relevant follow-up starting with "NEXT_QUESTION:".'}`;
 
-      setState({
-        answers: [...state.answers, newAnswer],
-        llmMessages: updatedMessages,
-        screen: SCREENS.REVIEW,
-        micState: MIC.IDLE,
-        currentTranscript: '',
-        currentAiText: '',
-        streaming: false,
-        error: null,
-      });
-    } else {
-      // Ask LLM to acknowledge AND generate the next question
-      const promptForNext = [
-        ...newMessages,
-        { role: 'user', content: `[After acknowledging, generate the next intake question. Base it on the patient's answers so far. Return ONLY: a brief acknowledgement (1 sentence), then on a new line starting with "NEXT_QUESTION:", the next question to ask.]` },
-      ];
+    const promptMessages = [
+      ...newMessages,
+      { role: 'user', content: `[${instruction}]` },
+    ];
 
-      const response = await callLLM(promptForNext);
+    const response = await callLLM(promptMessages);
 
-      // Parse ack and next question from response
-      let ack = response;
-      let nextQuestion = 'Is there anything else you would like your doctor to know?';
+    // Parse fields
+    const summaryMatch = response.match(/SUMMARY:\s*(.+?)(?=NEXT_QUESTION:|DONE|$)/is);
+    const nextMatch = response.match(/NEXT_QUESTION:\s*(.+?)(?=SUMMARY:|DONE|$)/is);
+    const isDone = /DONE/i.test(response) && !nextMatch;
 
-      const nextMatch = response.match(/NEXT_QUESTION:\s*(.+)/i);
-      if (nextMatch) {
-        nextQuestion = nextMatch[1].trim();
-        ack = response.replace(/NEXT_QUESTION:.+/i, '').trim();
-      }
+    const summary = summaryMatch ? summaryMatch[1].trim() : transcript;
+    const nextQuestion = nextMatch ? nextMatch[1].trim() : null;
+    let ack = response
+      .replace(/SUMMARY:.+/is, '')
+      .replace(/NEXT_QUESTION:.+/is, '')
+      .replace(/DONE/gi, '')
+      .trim();
 
-      const updatedMessages = [...newMessages, { role: 'assistant', content: ack }];
-      const newAnswer = { question: currentQ, answer: transcript, aiAck: ack };
+    const newAnswer = { question: currentQ, answer: transcript, aiAck: ack, summary };
+    const updatedMessages = [...newMessages, { role: 'assistant', content: ack }];
+
+    if (!mustStop && !isDone && nextQuestion) {
       const newQuestions = [...state.questions, nextQuestion];
-
       setState({
         answers: [...state.answers, newAnswer],
         questions: newQuestions,
@@ -914,8 +908,18 @@ async function handleAnswer(transcript) {
         streaming: false,
         error: null,
       });
-
       streamText(nextQuestion);
+    } else {
+      setState({
+        answers: [...state.answers, newAnswer],
+        llmMessages: updatedMessages,
+        screen: SCREENS.REVIEW,
+        micState: MIC.IDLE,
+        currentTranscript: '',
+        currentAiText: '',
+        streaming: false,
+        error: null,
+      });
     }
   } catch (err) {
     setState({

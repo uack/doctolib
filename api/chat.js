@@ -13,16 +13,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid request body' });
   }
 
-  const systemPrompt = `You are a medical intake assistant for Doctolib. Your role is to collect patient-reported information before a medical appointment.
+  const systemPrompt = `You are a medical intake assistant for Doctolib collecting patient information before an appointment.
 
 Rules:
-- Acknowledge each answer briefly (1 sentence, under 20 words).
-- When asked to generate the next question, base it on what the patient has shared so far. Make it relevant and specific.
-- Never make clinical inferences, diagnoses, or medical judgements.
-- Never say "Patient has..." — always use "Patient reported..."
-- If a patient is distressed or mentions an emergency, say: "If this is an emergency, please call 15 (SAMU) or 112 immediately."
+- Acknowledgements must reference what the patient actually said (e.g. "Thank you — back pain for 3 days is useful context."). Under 20 words.
+- SUMMARY must be a concise third-person note for the doctor (e.g. "Patient reported lower back pain starting 3 days ago."). Under 20 words.
+- NEXT_QUESTION must be specific and informed by prior answers — never generic.
+- Never make clinical inferences or diagnoses.
+- Always use "Patient reported..." not "Patient has...".
+- If the patient mentions an emergency, say: "If this is an emergency, please call 15 (SAMU) or 112 immediately."
 - Respond in the same language the patient uses.
-- When generating a next question, format your response as: [acknowledgement]\nNEXT_QUESTION: [question]`;
+- Always follow the exact output format requested in the instruction brackets.`;
 
   try {
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
