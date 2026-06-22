@@ -69,15 +69,13 @@ pages_total:    12
 
 **READ THIS**: `[[cases/case-answer-framework]]`
 
-Opening frame: "This is a design system problem, not a feature design problem."
-Two surfaces: patient intake (async, structured) → pro summary (scannable, <10s)
-Core deliverable: AI Interaction Layer (DS Layers 3–4), 6 components:
-`AIMessage`, `IntakeQuestion`, `ConsentGate`, `SummaryCard`, `StreamingText`, `ProviderBadge`
+Opening: "This is a design system problem, not a feature design problem."
+Two surfaces: patient intake (async) → pro summary (scannable, <10s)
+6 components: `AIMessage`, `IntakeQuestion`, `ConsentGate`, `SummaryCard`, `StreamingText`, `ProviderBadge`
 4-week plan: Discovery → Prototype → Integration → Governance
 Big bet: "This infrastructure powers every AI touchpoint Doctolib will ever ship."
 
-**BRIEF ANALYSIS**: `[[cases/live-case-brief]]`
-Role: Design Engineer (builds infrastructure). 40 min work, 15 min present, 20 min Q&A.
+**BRIEF**: `[[cases/live-case-brief]]` — Design Engineer (builds infrastructure). 40min work, 15min present, 20min Q&A.
 
 ---
 
