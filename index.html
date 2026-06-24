@@ -905,20 +905,26 @@ async function handleAnswer(transcript) {
     const newAnswer = { question: currentQ, answer: transcript, aiAck: ack, summary };
     const updatedMessages = [...newMessages, { role: 'assistant', content: ack }];
 
-    if (!mustStop && !isDone && nextQuestion) {
-      const newQuestions = [...state.questions, nextQuestion];
+    // Enforce minimum: if we haven't reached MIN_QUESTIONS, always continue
+    // even if the LLM returned DONE or failed to produce a NEXT_QUESTION
+    const fallbackQuestion = 'Is there anything else you would like your doctor to know before your appointment?';
+    const shouldContinue = !mustStop && (mustContinue || (!isDone && nextQuestion));
+
+    if (shouldContinue) {
+      const resolvedNext = nextQuestion || fallbackQuestion;
+      const newQuestions = [...state.questions, resolvedNext];
       setState({
         answers: [...state.answers, newAnswer],
         questions: newQuestions,
         questionIdx: nextIdx,
-        llmMessages: [...updatedMessages, { role: 'assistant', content: nextQuestion }],
+        llmMessages: [...updatedMessages, { role: 'assistant', content: resolvedNext }],
         micState: MIC.IDLE,
         currentTranscript: '',
         currentAiText: '',
         streaming: false,
         error: null,
       });
-      streamText(nextQuestion);
+      streamText(resolvedNext);
     } else {
       setState({
         answers: [...state.answers, newAnswer],
